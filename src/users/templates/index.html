@@ -1,0 +1,63 @@
+{% load static %}
+{% load mptt_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> 
+
+</head>
+<body>
+    <nav class='navbar navbar-expand-lg navbar-dark'>
+        <div class="container">
+            <a href="{% url 'index' %}">Интернет магазин</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+        <div class="collapse navbar-collapse" id="mainMenu">
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav ml-auto">
+                <a href="{% url 'edit' pk=request.user.pk%}">Редактировать профиль</a>
+
+                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </li>
+            </ul>
+            {% else %}
+                <form class="from-inline ml-auto">
+                    <a href="{% url 'login' %}" class="btn btn-outline-secondary">Войти</a>
+                    <a href="{% url 'sign_up' %}" class="btn btn-primary ml-2">Зарегистрироваться</a>
+                </form>
+            {% endif %}
+        </div>
+        </div>    
+    </nav>
+<h2>Карточки товаров</h2>
+<div class="row">
+    {% for product in products %}
+        <div class="col-lg-4 col-md-6 mb-3">
+            <h5>Категория: {{product.category}}</h5>
+            Наименование: {{product}} <br>
+            Описание: {{product.description}} <br>
+            Цена: {{product.price}}
+        </div>
+        {% endfor %}
+    </div>
+ <h2>Категории</h2>
+<ul>
+    {% recursetree categories %}
+        <li>
+            {{ node.name }}
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+</body>
+</html>
