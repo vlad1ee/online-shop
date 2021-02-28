@@ -4,6 +4,8 @@
 
 Создайте виртуальное окружение: python3 -m venv venv и активируйте его: source venv/bin/activate.
 
+На всякий случай обновите pip3 install --upgrade pip
+
 Установите зависимости командой pip install -r requirements.txt. 
 
 Затем, в настройках проекта, в файле settings.py вам нужно настроить базу данных (создать пользователя, указать его USERNAME и PASSWORD, создать базу данных и в 
