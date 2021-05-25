@@ -4,7 +4,8 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 class Category(MPTTModel):
     name = models.CharField(max_length=100, verbose_name='Категория')
-    parent = TreeForeignKey('self', verbose_name='Подкатегория', on_delete=models.CASCADE, null=True,
+    parent = TreeForeignKey('self', verbose_name='Подкатегория',
+                            on_delete=models.CASCADE, null=True,
                             blank=True, related_name='children')
 
     def __str__(self):
